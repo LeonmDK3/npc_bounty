@@ -15,4 +15,5 @@ Locales['en'] = {
 	['decipher'] = 'Deciphering intel...',
 	['searching'] = 'Searching crates...',
 	['used'] = 'Finish your started mission first',
+	['max_dist'] = 'You have left the mission area and failed',
 }

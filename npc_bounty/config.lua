@@ -10,7 +10,6 @@ Config.printRemaining = true -- change this to show the amount of remaining enem
 Config.useMythic = true-- change this if you want to use mythic_notify to draw notifications - (true/false)
 Config.progBar = true -- change this if you want to use progressBar or not - (true/false)
 Config.removeArea = false -- change this if you want the red circle to disappear once you're at the location - (true/false)
-Config.aiBlip = true -- change this if you want the enemies to have a blip on the map - (true/false)
 Config.useDirtyMoney = false -- change this if you want to receive dirty money for selling dog tags - (true/false)
 Config.waypoint = true -- change this to set a waypoint to the spawn location once you're close enough - (true/false)
 Config.blipSprite = 90 -- if hideBlip is false then change this to your preferred sprite - (list of sprites: https://wiki.gtanet.work/index.php?title=Blips)
@@ -21,6 +20,7 @@ Config.enemyVest = false -- change this if you want to give the enemies armor - 
 Config.enemyArmor = 100 -- change this to the amount you want if enemyVest is true - (0-100%)
 Config.radius = 500.0 -- change this to increase/decrease the radius of the search area. If you go below 500 you will have to change some of the spawn locations - (float value)
 Config.distance = 200 -- change this to increase/decrease the distance at which the enemies spawn - (might see enemies pop in with lower values)
+Config.maxDistance = 300 -- change this to increase/decrease the max. distance you can be away from the enemies before the mission fails - (Keep higher than Config.distance)
 Config.boxProp = "prop_mb_crate_01b" -- change the prop that will be used as a lootable source. Adjust crate x,y,z,h accordingly - (list of props: https://plebmasters.de/?app=objects)
 Config.spawnedEnemy = "s_m_y_blackops_01" -- change the ped that will spawn and attack you - (list of peds: https://wiki.rage.mp/index.php?title=Peds)
 

@@ -129,6 +129,8 @@ function main()
 	end)
 	Citizen.CreateThread(function()
 		while inUse do
+			playerpos = GetEntityCoords(player)												
+			local disttocoord = #(vector3(location.enemy.x, location.enemy.y, location.enemy.z)-vector3(playerpos.x,playerpos.y,playerpos.z))
 			if IsEntityDead(player) then
 				Citizen.Wait(1000)
 				clearmission()
@@ -139,6 +141,11 @@ function main()
 					Citizen.Wait(2000)
 					clearmission()
 					success(location.crate.x, location.crate.y, location.crate.z, location.crate.h)
+				end	
+				if disttocoord > Config.maxDistance and not enroute then
+					exports['mythic_notify']:DoLongHudText('inform', _U'max_dist')
+					maxDist()
+					return
 				end
 			end
 			Citizen.Wait(1000)
@@ -160,11 +167,28 @@ function main()
 	end
 end
 
+function maxDist()
+	inUse = false
+	TriggerServerEvent('bounty:updatetable', false)
+	RemoveBlip(radius)
+	RemoveBlip(blip)
+	usedItem = false
+	active = false
+	for a = 1, #enemies do
+		if DoesEntityExist(enemies[a]) then
+			DeleteEntity(enemies[a])
+		end
+	end
+end
+
 function success(x,y,z,h)
 	local box = GetHashKey(Config.boxProp)
 	box2 = CreateObject(box, x,y,z-1, true, true, false)
 	local crate = false
 	local player = GetPlayerPed(-1)
+	if Config.useMythic then
+		exports['mythic_notify']:DoLongHudText('inform', _U'search_evidence')
+	end
 	FreezeEntityPosition(box2, true)
 	SetEntityHeading(box2, h)
 	Citizen.CreateThread(function()
@@ -205,7 +229,6 @@ function success(x,y,z,h)
 	end)
 end
 
-
 Citizen.CreateThread(function()
 	while true do
 		sleep = 5
@@ -224,7 +247,6 @@ Citizen.CreateThread(function()
 		Citizen.Wait(sleep)
 	end
 end)
-
 
 function decipherAnim()
 	local player = GetPlayerPed(-1)
@@ -263,16 +285,6 @@ function clearmission()
 			end
 		end
 	end
-	enemies = {}
-	if Config.useMythic then
-		exports['mythic_notify']:DoLongHudText('inform', _U'search_evidence')
-	end
-	for _, enemyblip in ipairs(enemyblips) do
-		if DoesBlipExist(enemyblip) then
-			RemoveBlip(enemyblip)
-		end
-	end
-	enemyblips = {}
 end
 
 function checkisdead()
@@ -375,14 +387,6 @@ function spawnPed(x,y,z)
 			end		
 		end
 	end)
-	if Config.aiBlip then
-		for _, enemy in ipairs(enemies) do
-			enemyblip = AddBlipForEntity(enemy)
-			SetBlipScale(enemyblip, 0.6)
-			SetBlipColour(enemyblip, 2)
-			table.insert(enemyblips, enemyblip)
-		end
-	end
 end
 
 function DrawText3Ds(x,y,z, text)

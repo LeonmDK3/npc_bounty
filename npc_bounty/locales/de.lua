@@ -15,6 +15,7 @@ Locales['de'] = {
 	['decipher'] = 'Entschlüssle Informationen',
 	['searching'] = 'Durchsuche Kisten...',
 	['used'] = 'Beende zuerst deine gestartete Mission',
+	['max_dist'] = 'Du hast das Missionsgebiet verlassen und die Mission beendet',
 }
 
 
